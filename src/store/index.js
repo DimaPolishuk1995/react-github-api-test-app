@@ -1,7 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import repositoriesReducer from './repositoriesSlice';
+import filtersReducer from './filtersSlice';
 
 const store = configureStore({
-    reducer: {},
+    reducer: {
+        repositories: repositoriesReducer,
+        filters: filtersReducer,
+    },
+    devTools: true,
 });
 
 export default store;
