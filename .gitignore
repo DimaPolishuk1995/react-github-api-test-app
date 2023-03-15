@@ -26,3 +26,5 @@ yarn-debug.log*
 yarn-error.log*
 .gitsecret/keys/random_seed
 !*.secret
+
+.env
