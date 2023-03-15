@@ -1,12 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const GITHUB_API_BASE_URL = 'https://api.github.com';
+import { instance } from '../api';
 
 export const fetchRepositories = createAsyncThunk(
     'repositories/fetchRepositories',
     async (params = { searchTerm: 'react' }) => {
-        const response = await axios.get(`${GITHUB_API_BASE_URL}/search/repositories`, {
+        const response = await instance.get('/search/repositories', {
             params: {
                 q: `${params.searchTerm} in:name`,
                 per_page: 20,
