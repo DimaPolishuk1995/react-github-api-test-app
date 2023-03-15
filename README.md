@@ -1,3 +1,11 @@
+# .env
+
+When you pull changes from GitHub, take .env.example file and rename it to .env.
+
+Replace the placeholder values in the .env file with the actual values for your environment.
+
+Save the .env file and start your application.
+
 # Result
 
 ![Screenshot of my app](./public/result.png "React app with Github api")
