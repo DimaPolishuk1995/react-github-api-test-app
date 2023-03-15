@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchRepositories, setIsInputActive} from '../store/repositoriesSlice';
@@ -44,6 +44,7 @@ const RepositoryList = () => {
     const pageCount = useSelector(getPageCount);
     const {status, error} = useSelector((state) => state.repositories);
     const {page, searchTerm} = useSelector((state) => state.filters);
+    const [isInitialSearch, setIsInitialSearch] = useState(true);
 
     const perPage = 3;
     const [startIndex, endIndex] = [(page - 1) * perPage, page * perPage];
@@ -51,16 +52,18 @@ const RepositoryList = () => {
 
     useEffect(() => {
         let searchTimeout;
-        if (searchTerm) {
-            searchTimeout = setTimeout(() => {
-                dispatch(fetchRepositories({searchTerm}));
-            }, 1000);
-        } else {
-            dispatch(fetchRepositories({searchTerm: 'react'}));
+        if(!isInitialSearch) {
+            if (searchTerm) {
+                searchTimeout = setTimeout(() => {
+                    dispatch(fetchRepositories({searchTerm}));
+                }, 1000);
+            } else {
+                dispatch(fetchRepositories());
+            }
         }
-
+        setIsInitialSearch(false);
         return () => clearTimeout(searchTimeout);
-    }, [dispatch, searchTerm]);
+    }, [dispatch, searchTerm, isInitialSearch]);
 
     const handlePageChange = (page) => dispatch(setPage(page));
 
